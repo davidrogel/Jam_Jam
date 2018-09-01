@@ -416,7 +416,6 @@ GameObject:
   - component: {fileID: 1341540071}
   - component: {fileID: 1341540070}
   - component: {fileID: 1341540069}
-  - component: {fileID: 1341540072}
   m_Layer: 10
   m_Name: Square (1)
   m_TagString: wall
@@ -508,26 +507,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &1341540072
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1341540068}
-  m_BodyType: 2
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1 &1372035822
 GameObject:
   m_ObjectHideFlags: 0
@@ -606,7 +585,6 @@ GameObject:
   - component: {fileID: 1436691215}
   - component: {fileID: 1436691214}
   - component: {fileID: 1436691213}
-  - component: {fileID: 1436691216}
   m_Layer: 10
   m_Name: Square
   m_TagString: wall
@@ -698,26 +676,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &1436691216
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1436691212}
-  m_BodyType: 2
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!4 &1451218840 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4381381120475986, guid: b52de493e5e58df4e8b9142bd2a6aeb1,
@@ -891,6 +849,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 50551564084757244, guid: b52de493e5e58df4e8b9142bd2a6aeb1,
+        type: 2}
+      propertyPath: m_UseFullKinematicContacts
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 61345330015372724, guid: b52de493e5e58df4e8b9142bd2a6aeb1,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b52de493e5e58df4e8b9142bd2a6aeb1, type: 2}
   m_IsPrefabAsset: 0
@@ -951,7 +919,6 @@ GameObject:
   - component: {fileID: 1804452311}
   - component: {fileID: 1804452310}
   - component: {fileID: 1804452309}
-  - component: {fileID: 1804452312}
   m_Layer: 10
   m_Name: Square (3)
   m_TagString: wall
@@ -1043,26 +1010,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90.00001}
---- !u!50 &1804452312
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1804452308}
-  m_BodyType: 2
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1 &1845587544
 GameObject:
   m_ObjectHideFlags: 0
@@ -1073,7 +1020,6 @@ GameObject:
   - component: {fileID: 1845587547}
   - component: {fileID: 1845587546}
   - component: {fileID: 1845587545}
-  - component: {fileID: 1845587548}
   m_Layer: 10
   m_Name: Square (2)
   m_TagString: wall
@@ -1165,26 +1111,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90.00001}
---- !u!50 &1845587548
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1845587544}
-  m_BodyType: 2
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1001 &1918616018
 Prefab:
   m_ObjectHideFlags: 0
