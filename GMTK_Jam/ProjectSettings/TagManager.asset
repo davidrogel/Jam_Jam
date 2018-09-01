@@ -15,10 +15,10 @@ TagManager:
   - UI
   - 
   - 
+  - enemy
   - 
-  - 
-  - 
-  - 
+  - wall
+  - player
   - 
   - 
   - 

@@ -2,21 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PauseScript : MonoBehaviour {
-
-    public bool isPaused;
-    public void Pause()
+namespace jam_jam
+{
+    public class PauseScript : MonoBehaviour
     {
-        if (isPaused)
-        {
-            isPaused = false;
-            Time.timeScale = 1;
-        }
-        else
-        {
-            isPaused = true;
-            Time.timeScale = 0;
-        }
+        public bool isPaused;
 
+        public void Pause()
+        {
+            if (isPaused)
+            {
+                isPaused = false;
+                Time.timeScale = 1;
+            }
+            else
+            {
+                isPaused = true;
+                Time.timeScale = 0;
+            }
+        }
     }
 }
