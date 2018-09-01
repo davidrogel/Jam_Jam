@@ -44,7 +44,7 @@ public class Charger : MonoBehaviour
 
         float angle = Vector3.Cross(dirToTarget, myTransform.up).z;
 
-        rb.angularVelocity = -angle * rotateSpeed;
+        rb.angularVelocity = ((avoid) ? 1 : -1) * angle * rotateSpeed;
 
         // move
         rb.velocity = myTransform.up * ((boosted) ? auxSpeedBoost : speed);
