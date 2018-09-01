@@ -25,13 +25,9 @@ public class CamController : MonoBehaviour
 
         transform.localScale = new Vector3(shakeVel, shakeVel, shakeVel);
 
-
         transform.position = new Vector3(DesiredPos.x, DesiredPos.y, transform.position.z);
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            CamShake();
-        }
+
 
     }
 
