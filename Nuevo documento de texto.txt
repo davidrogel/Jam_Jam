@@ -1,2 +1,6 @@
 test
+<<<<<<< HEAD
 test_david
+=======
+test manu
+>>>>>>> 9a73ba64582f5f42eebb312b9ae08629ae6d154b
