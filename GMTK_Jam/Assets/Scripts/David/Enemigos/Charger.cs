@@ -15,12 +15,14 @@ public class Charger : MonoBehaviour
     [SerializeField]
     private float auxSpeedBoost = 0f;
 
-    private Transform myTransform;
+    private bool avoid;
 
+    private Transform myTransform;
     private Rigidbody2D rb;
 
     private void Start()
     {
+        avoid = false;
         myTransform = transform;
         rb = GetComponent<Rigidbody2D>();
     }
@@ -42,15 +44,31 @@ public class Charger : MonoBehaviour
 
         float angle = Vector3.Cross(dirToTarget, myTransform.up).z;
 
-        rb.angularVelocity = -angle * rotateSpeed;
+        rb.angularVelocity = ((avoid) ? 1 : -1) * angle * rotateSpeed;
 
         // move
         rb.velocity = myTransform.up * ((boosted) ? auxSpeedBoost : speed);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        auxSpeedBoost = speedBoost;
-        boosted = true;
+        if(collider.gameObject.tag == "player")
+        {
+            auxSpeedBoost = speedBoost;
+            boosted = true;
+        }
+        else if(collider.gameObject.tag == "wall")
+        {
+            auxSpeedBoost = speedBoost;
+            avoid = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "wall")
+        {
+            avoid = false;
+        }
     }
 }
