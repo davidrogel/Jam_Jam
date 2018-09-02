@@ -12,11 +12,12 @@ namespace jam_jam
         public float rotateSpeed = 150f;
         public Transform target;
 
-        [SerializeField]
-        private bool boosted = false;
+        public int dmg = 1;
+
         [SerializeField]
         private float auxSpeedBoost = 0f;
 
+        private BoostSensor sensor;
         private Transform myTransform;
         private Rigidbody2D rb;
 
@@ -24,15 +25,16 @@ namespace jam_jam
         {   
             myTransform = transform;
             rb = GetComponent<Rigidbody2D>();
+            sensor = myTransform.GetChild(0).GetComponent<BoostSensor>();
         }
 
         private void Update()
         {
-            if (boosted)
+            if (sensor.boost)
             {
                 auxSpeedBoost -= Time.deltaTime * decrementBoostSpeedRatio;
                 if (auxSpeedBoost <= speed)
-                    boosted = false;
+                    sensor.boost = false;
             }
 
             Vector2 dirToTarget = (target.position - myTransform.position).normalized;
@@ -45,15 +47,26 @@ namespace jam_jam
         private void FixedUpdate()
         {
             // move
-            rb.velocity = myTransform.up * ((boosted) ? auxSpeedBoost : speed);
+            rb.velocity = myTransform.up * ((sensor.boost) ? auxSpeedBoost : speed);
         }
 
-        private void OnTriggerEnter2D(Collider2D collider)
+        public void BoostSpeedUp()
         {
-            if (collider.gameObject.tag == "player")
+            auxSpeedBoost = speedBoost;
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            GameObject go = other.gameObject;
+            if (go != null)
             {
-                auxSpeedBoost = speedBoost;
-                boosted = true;
+                if (go.layer == 11)
+                {
+                    //auxSpeedBoost = speedBoost;
+                    //boosted = true;
+                    //print("vida");
+                    go.GetComponent<HealthController>().ApplyDmg(dmg);
+                }
             }
         }
     }

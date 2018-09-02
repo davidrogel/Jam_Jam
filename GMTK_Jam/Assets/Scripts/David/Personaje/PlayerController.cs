@@ -26,8 +26,16 @@ namespace jam_jam
         private Transform myTransform;
         private Rigidbody2D rb;
 
+        private HealthController playerHealth;        
+        private UI_Bar healthBar;
+
         private void Start()
         {
+            playerHealth = GetComponent<HealthController>();
+            healthBar = GameObject.Find("HealthBar").GetComponent<UI_Bar>();
+
+            healthBar.Value = healthBar.MaxValue = playerHealth.GetHealth();
+
             currentInvulnerableTime = invulnerableTime;
             defaultTimeDashing = timeDashing;
             rb = GetComponent<Rigidbody2D>();
@@ -36,6 +44,8 @@ namespace jam_jam
 
         private void Update()
         {
+            healthBar.Value = playerHealth.GetCurrentHealth();
+
             // input
             keyInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
 
