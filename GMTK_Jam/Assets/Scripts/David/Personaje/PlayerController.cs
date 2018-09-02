@@ -74,7 +74,12 @@ namespace jam_jam
 
         private void Dash()
         {
-            bool dashInput = (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Space));
+            bool dashInput = 
+            (
+                Input.GetKeyDown(KeyCode.LeftShift) || 
+                Input.GetKeyDown(KeyCode.Space) ||
+                Input.GetKeyDown(KeyCode.E)
+            );
 
             if (dashInput && !dashing)
             {
