@@ -17,18 +17,34 @@ namespace jam_jam
         [SerializeField]
         private float auxSpeedBoost = 0f;
 
+        private StopHeart stop;
+        private HealthController healthController;
         private BoostSensor sensor;
         private Transform myTransform;
         private Rigidbody2D rb;
+        private Animator anim;
 
         private void Start()
-        {   
+        {
+            stop = GetComponent<StopHeart>();
+            healthController = GetComponent<HealthController>();
+            anim = GetComponent<Animator>();
             myTransform = transform;
             rb = GetComponent<Rigidbody2D>();
             sensor = myTransform.GetChild(0).GetComponent<BoostSensor>();
+            anim.SetBool("walk", true);
         }
 
         private void Update()
+        {
+            SetAnims();
+
+            Boost();
+
+            Rotation();
+        }
+
+        private void Boost()
         {
             if (sensor.boost)
             {
@@ -36,7 +52,10 @@ namespace jam_jam
                 if (auxSpeedBoost <= speed)
                     sensor.boost = false;
             }
+        }
 
+        private void Rotation()
+        {
             Vector2 dirToTarget = (target.position - myTransform.position).normalized;
 
             float angle = Vector3.Cross(dirToTarget, myTransform.up).z;
@@ -50,6 +69,18 @@ namespace jam_jam
             rb.velocity = myTransform.up * ((sensor.boost) ? auxSpeedBoost : speed);
         }
 
+        private void SetAnims()
+        {
+            anim.SetBool("boost", sensor.boost);
+
+            if(healthController.GetCurrentHealth() <= 0)
+            {
+                anim.SetTrigger("death");
+                // stop !
+                stop.StopIt();
+            }
+        }
+
         public void BoostSpeedUp()
         {
             auxSpeedBoost = speedBoost;
@@ -60,12 +91,18 @@ namespace jam_jam
             GameObject go = other.gameObject;
             if (go != null)
             {
-                if (go.layer == 11)
+                switch (go.layer)
                 {
-                    //auxSpeedBoost = speedBoost;
-                    //boosted = true;
-                    //print("vida");
-                    go.GetComponent<HealthController>().ApplyDmg(dmg);
+                    case 9: // death zone
+                        {
+                            healthController.ApplyDmg(int.MaxValue);
+                        }
+                        break;
+                    case 11: // player
+                        {
+                            go.GetComponent<HealthController>().ApplyDmg(dmg);
+                        }
+                        break;
                 }
             }
         }

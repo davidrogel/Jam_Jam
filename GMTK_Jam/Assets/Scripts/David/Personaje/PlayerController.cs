@@ -22,9 +22,13 @@ namespace jam_jam
         private bool dashing = false;
         private Vector3 dashDir;
 
+        private bool getDmg = false;
+
         private Vector2 keyInput;
         private Transform myTransform;
         private Rigidbody2D rb;
+
+        private Animator anim;
 
         private HealthController playerHealth;        
         private UI_Bar healthBar;
@@ -38,6 +42,8 @@ namespace jam_jam
 
             currentInvulnerableTime = invulnerableTime;
             defaultTimeDashing = timeDashing;
+
+            anim = GetComponent<Animator>();
             rb = GetComponent<Rigidbody2D>();
             myTransform = transform;
         }
@@ -55,8 +61,30 @@ namespace jam_jam
             // dash
             Dash();
 
+            // animaciones
+            AnimStates();
+
             // rotation
             Rotation();
+        }
+
+        private void AnimStates()
+        {
+            anim.SetBool("dash", dashing);
+
+            if(getDmg)
+            {
+                anim.SetTrigger("getdmg");
+                getDmg = false;
+            }
+            else if((keyInput != Vector2.zero))
+            {
+                anim.SetBool("onMovement", true);
+            }
+            else
+            {
+                anim.SetBool("onMovement", false);
+            }
         }
 
         private void InvulnerableState()
@@ -122,6 +150,7 @@ namespace jam_jam
             if(collision.gameObject.layer == 8) // enemy
             {
                 invulnerable = true;
+                getDmg = true;
             }
         }
     }
