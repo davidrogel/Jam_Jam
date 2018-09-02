@@ -22,6 +22,7 @@ namespace jam_jam
         void Close()
         {
             Application.Quit();
+            UnityEditor.EditorApplication.isPlaying = false;
         }
     }
 }
