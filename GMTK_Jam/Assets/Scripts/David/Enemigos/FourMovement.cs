@@ -18,6 +18,7 @@ namespace jam_jam
 
         private bool death = false;
 
+        public GameObject blood;
         private Transform myTransform;
         private Rigidbody2D rb;
         private Transform graphics;
@@ -134,7 +135,7 @@ namespace jam_jam
             // player
             else if (collision.gameObject.layer == 11)
             {
-
+                collision.gameObject.GetComponent<HealthController>().ApplyDmg();
             }
             else if(collision.gameObject.layer == 9)
             {
@@ -145,6 +146,7 @@ namespace jam_jam
                     s.go = false;
                 moveDir = Vector2.zero;
                 rb.velocity = Vector2.zero;
+                Instantiate(blood, transform.position, Quaternion.identity);
 
                 healthController.ApplyDmg(int.MaxValue);
             }

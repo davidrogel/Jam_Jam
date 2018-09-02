@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 namespace jam_jam
@@ -10,6 +11,8 @@ namespace jam_jam
         private float speed = 7f;
         [SerializeField]
         private float dashForce = 100f;
+
+        public GameObject blood;
 
         private bool invulnerable = false;
         [SerializeField]
@@ -52,6 +55,11 @@ namespace jam_jam
 
         private void Update()
         {
+            if(playerHealth.GetCurrentHealth() <= 0)
+            {
+                SceneManager.LoadScene(0);
+            }
+
             healthBar.Value = playerHealth.GetCurrentHealth();
 
             // input
@@ -151,9 +159,18 @@ namespace jam_jam
         {
             if(collision.gameObject.layer == 8) // enemy
             {
+                Instantiate(blood, transform.position, Quaternion.identity);
                 cameraShake.CamShake();
                 invulnerable = true;
                 getDmg = true;
+            }
+            else if(collision.gameObject.layer == 9) // deathzone
+            {
+                Instantiate(blood, transform.position, Quaternion.identity);
+                cameraShake.CamShake();
+                invulnerable = true;
+                getDmg = true;
+                playerHealth.ApplyDmg();
             }
         }
     }

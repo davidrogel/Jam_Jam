@@ -204,6 +204,7 @@ MonoBehaviour:
   target: {fileID: 0}
   dmg: 1
   auxSpeedBoost: 0
+  blood: {fileID: 1190087105003840, guid: b627a11fef04bb24180bd279ce63aa92, type: 2}
 --- !u!114 &114944625877678090
 MonoBehaviour:
   m_ObjectHideFlags: 1

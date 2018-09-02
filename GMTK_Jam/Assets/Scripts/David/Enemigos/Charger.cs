@@ -17,6 +17,7 @@ namespace jam_jam
         [SerializeField]
         private float auxSpeedBoost = 0f;
 
+        public GameObject blood;
         private StopHeart stop;
         private HealthController healthController;
         private BoostSensor sensor;
@@ -85,7 +86,7 @@ namespace jam_jam
         {
             auxSpeedBoost = speedBoost;
         }
-
+        
         private void OnTriggerEnter2D(Collider2D other)
         {
             GameObject go = other.gameObject;
@@ -95,6 +96,7 @@ namespace jam_jam
                 {
                     case 9: // death zone
                         {
+                            Instantiate(blood, transform.position, Quaternion.identity);
                             healthController.ApplyDmg(int.MaxValue);
                         }
                         break;
