@@ -15,7 +15,7 @@ namespace jam_jam
 
         [HideInInspector]
         public bool go;
-
+        
         private void OnTriggerEnter2D(Collider2D collision)
         {
             // player

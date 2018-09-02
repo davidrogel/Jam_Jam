@@ -92,25 +92,25 @@ namespace jam_jam
             rb.velocity = moveDir * speed;
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        private void OnCollisionEnter2D(Collision2D collision)
         {
             // walls
-            if (collision.gameObject.layer == 10) 
+            if (collision.collider.gameObject.layer == 10)
             {
                 // paramos el enemigo
                 onMovement = false;
                 // reseteamos variables a estado neutro
-                foreach(Sensor s in sensors)
+                foreach (Sensor s in sensors)
                     s.go = false;
                 moveDir = Vector2.zero;
             }
             // player
-            else if(collision.gameObject.layer == 11)
+            else if (collision.gameObject.layer == 11)
             {
 
             }
             // other enemies
-            else if(collision.gameObject.layer == 12)
+            else if (collision.gameObject.layer == 12)
             {
 
             }
