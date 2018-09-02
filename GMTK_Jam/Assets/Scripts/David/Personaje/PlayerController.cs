@@ -32,9 +32,11 @@ namespace jam_jam
 
         private HealthController playerHealth;        
         private UI_Bar healthBar;
+        private CamController cameraShake;
 
         private void Start()
         {
+            cameraShake = Camera.main.transform.parent.GetComponent<CamController>();
             playerHealth = GetComponent<HealthController>();
             healthBar = GameObject.Find("HealthBar").GetComponent<UI_Bar>();
 
@@ -145,10 +147,11 @@ namespace jam_jam
             rb.velocity = keyInput * speed;
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
             if(collision.gameObject.layer == 8) // enemy
             {
+                cameraShake.CamShake();
                 invulnerable = true;
                 getDmg = true;
             }

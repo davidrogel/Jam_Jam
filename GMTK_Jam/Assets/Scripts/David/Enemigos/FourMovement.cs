@@ -7,7 +7,7 @@ namespace jam_jam
     public class FourMovement : MonoBehaviour
     {
         public float speed = 7f;
-
+        [SerializeField]
         private Sensor[] sensors;
         private Sensor currentSensorActivated = null;
 
@@ -16,28 +16,39 @@ namespace jam_jam
         [SerializeField]
         private bool onMovement = false;
 
+        private bool death = false;
+
         private Transform myTransform;
         private Rigidbody2D rb;
+        private Transform graphics;
+        private Animator anim;
+        private HealthController healthController;
+        private StopHeart stop;
 
         private void Start()
         {
+            stop = GetComponent<StopHeart>();
+            healthController = GetComponent<HealthController>();
+            graphics = transform.GetChild(0);
+            anim = graphics.gameObject.GetComponent<Animator>();
             myTransform = transform;
             rb = GetComponent<Rigidbody2D>();
 
             if(sensors == null || sensors.Length == 0)
             {
                 int count = myTransform.childCount;
-                sensors = new Sensor[count];
-                for(int i = 0; i < count; i++)
+                sensors = new Sensor[count - 1];
+                for(int i = 1; i < count; i++)
                 {
-                    sensors[i] = myTransform.GetChild(i).GetComponent<Sensor>();
+                    sensors[i - 1] = myTransform.GetChild(i).GetComponent<Sensor>();
                 }
             }
         }
 
         private void Update()
         {
-            if(!onMovement)
+            SetAnims();
+            if (!onMovement)
             {
                 //print("no me muevo, busco sensor");
                 CheckMoveDirection();
@@ -45,6 +56,18 @@ namespace jam_jam
             else
             {
                 //print("me estoy moviendo");
+            }
+        }
+
+        private void SetAnims()
+        {
+            anim.SetBool("charge", moveDir != Vector2.zero);
+
+            if(healthController.GetCurrentHealth() <= 0)
+            {
+                anim.SetTrigger("death");
+                // stop!
+                stop.StopIt();
             }
         }
 
@@ -59,15 +82,19 @@ namespace jam_jam
                 {
                     case Direction.N:
                         moveDir = new Vector2(0f, 1f);
+                        graphics.localEulerAngles = new Vector3(0f, 0f, 180f);
                         break;
                     case Direction.S:
                         moveDir = new Vector2(0f, -1f);
+                        graphics.localEulerAngles = new Vector3(0f, 0f, 0f);
                         break;
                     case Direction.E:
                         moveDir = new Vector2(1f, 0f);
+                        graphics.localEulerAngles = new Vector3(0f, 0f, 90f);
                         break;
                     case Direction.W:
                         moveDir = new Vector2(-1f, 0f);
+                        graphics.localEulerAngles = new Vector3(0f, 0f, 270f);
                         break;
                 }
                 onMovement = true;
@@ -109,10 +136,17 @@ namespace jam_jam
             {
 
             }
-            // other enemies
-            else if (collision.gameObject.layer == 12)
+            else if(collision.gameObject.layer == 9)
             {
+                // paramos el enemigo
+                onMovement = false;
+                // reseteamos variables a estado neutro
+                foreach (Sensor s in sensors)
+                    s.go = false;
+                moveDir = Vector2.zero;
+                rb.velocity = Vector2.zero;
 
+                healthController.ApplyDmg(int.MaxValue);
             }
         }
     }
