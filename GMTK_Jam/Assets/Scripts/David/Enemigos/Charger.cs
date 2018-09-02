@@ -38,7 +38,7 @@ namespace jam_jam
         private void Update()
         {
             SetAnims();
-
+            
             Boost();
 
             Rotation();
